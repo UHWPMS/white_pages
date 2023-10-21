@@ -44,11 +44,15 @@
     <br>
     @if(count($data)>0)
     @if ($errors->any())
-    @foreach ($errors->all() as $error)
-    <h5 class="alert alert-danger">The Department Grouping does not updated successfully</h5>
-    @endforeach
+    <h6 class="alert alert-danger">
+        The Department Grouping was not updated successfully<br>
+        @foreach ($errors->all() as $error)
+        &#9888; {{ $error }}<br>
+        @endforeach
+        Try to re-updated!
+    </h6>
     @endif
-    <button type = "button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDeptGrpModal">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDeptGrpModal">
         Add Department Group
     </button>
     <table id="table" class="table table-hover">
@@ -140,17 +144,11 @@
                             <label for="edit-dept-grp">Group Number</label>
                             <input type="text" name="dept_grp" class="form-control" id="edit-dept-grp"
                                    required minlength="6" maxlength="6">
-                            @error('dept_grp')
-                            <span class="text-danger" id="edit-dept-grp-error">{{$message}}</span>
-                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="edit-dept-grp-name">Department Group Name</label>
                             <input type="text" name="dept_grp_name" class="form-control" id="edit-dept-grp-name"
-                                required minlength="3" maxlength="60">
-                            @error('dept_grp_name')
-                            <span class="text-danger" id="edit-dept-grp-name-error">{{$message}}</span>
-                            @enderror
+                                   required minlength="3" maxlength="60">
                         </div>
                         <div class="form-group">
                             <label for="edit-dept-grp-name">Campus Code</label>
