@@ -61,7 +61,7 @@ class DeptGroupController extends Controller
     public function store(Request $req) {
         $messages =[
             'dept_grp.unique' => 'The department group: ' . $req->dept_grp . ' is already in use. Cannot create another department with same group number.',
-            'dept_grp_name.unique' => 'The department group name:' . $req->dept_grp_name . 'is already in use. Cannot create another department with same group name.',
+            'dept_grp_name.unique' => 'The department group name: ' . $req->dept_grp_name . ' is already in use. Cannot create another department with the same group name.',
         ];
         $validatedData = $req->validate([
             'dept_grp' => [

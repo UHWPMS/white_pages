@@ -298,12 +298,7 @@
             $("#add-button").on("click", function() {
                 $("#addDeptGrpModal").modal("show");
             });
-            $("#addDeptGrpForm").submit(function (e) {
-                e.preventDefault();
-                var deptGrp = $("#dept_grp").val();
-                var deptGrpName = $("#dept_grp_name").val();
-                var campusCode = $("#add-campus-code").val();
-            });
+            
         });
 
     });
