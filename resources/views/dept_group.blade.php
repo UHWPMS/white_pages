@@ -20,8 +20,8 @@
             cursor: pointer;
         }
 
-        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-            background-color: #007bff;
+        .dataTables_wrapper .dataTables_paginate .paginate_button.active {
+            background-color: #b0cbe8;
             color: #fff;
         }
 
@@ -52,7 +52,8 @@
         Please revise and resubmit to update record!
     </h6>
     @endif
-    <button id="add-button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDeptGrpModal">
+    <button id="add-button" type="button" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#addDeptGrpModal">
         Add Department Group
     </button>
     <table id="table" class="table table-hover">
@@ -172,14 +173,14 @@
     </div>
     <!-- Add Modal -->
     <div class="modal fade" id="addDeptGrpModal" tabindex="-1" aria-labelledby="addDeptGrpModalLabel"
-        aria-hidden="true">
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addDeptGrpModalLabel">Add Department Group</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
-                                id="add-x-button">
-                            <span aria-hidden="true">&times;</span>
+                            id="add-x-button">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -188,17 +189,13 @@
                         @csrf
                         <div class="form-group">
                             <label for="dept_grp">Group Number</label>
-                            <input type="text" class="form-control" id="dept_grp" name="dept_grp" required minlength="6" maxlength="6">
-                            @error('dept_grp')
-                            <span class="text-danger" id="add-dept-grp-error">{{$message}}</span>
-                            @enderror
-                         </div>
+                            <input type="text" class="form-control" id="dept_grp" name="dept_grp" required minlength="6"
+                                   maxlength="6">
+                        </div>
                         <div class="form-group">
                             <label for="dept_grp_name">Department Group Name</label>
-                            <input type="text" class="form-control" id="dept_grp_name" name="dept_grp_name" required minlength="3" maxlength="60">
-                            @error('dept_grp_name')
-                            <span class="text-danger" id="add-dept-grp-error">{{$message}}</span>
-                            @enderror
+                            <input type="text" class="form-control" id="dept_grp_name" name="dept_grp_name" required
+                                   minlength="3" maxlength="60">
                         </div>
                         <div class="form-group">
                             <label for="campus_code">Campus Code</label>
@@ -209,7 +206,8 @@
                             </select>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="add-close-button">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    id="add-close-button">
                                 Close
                             </button>
                             <button type="submit" class="btn btn-primary">Add</button>
@@ -239,9 +237,8 @@
                 }
             }
         });
-
         // Function to handle the delete button click
-        $(".delete-button").on("click", function () {
+        $("#table").on("click", ".delete-button", function () {
             var deptGrp = $(this).data("dept-grp");
             var deptGrpName = $(this).data("dept-grp-name");
             var campusCode = $(this).data("campus-code");
@@ -251,41 +248,31 @@
             $("#delete-campus-code").text(campusCode);
             $("#deleteModal").modal("show");
 
-            // Update the form action with the correct URL
             var deleteUrl = "{{ route('dept_group.destroy', ':deptGrp') }}";
             deleteUrl = deleteUrl.replace(":deptGrp", deptGrp);
             $("#delete-form").attr("action", deleteUrl);
         });
 
-        $("#add-close-button").on("click", function () {
-            // Clear any existing error messages
-            $("#add-dept-grp-error").text("");
-            $("#add-dept-grp-name-error").text("");
+        // Function to handle the delete button click
+        $("#table").on("click", ".edit-button", function () {
+            var deptGrp = $(this).data("dept-grp");
+            var deptGrpName = $(this).data("dept-grp-name");
+            var campusCode = $(this).data("campus-code");
+
+            $("#edit-dept-grp").val(deptGrp);
+            $("#edit-dept-grp-name").val(deptGrpName);
+            $("#edit-campus-code").val(campusCode);
+            $("#editModal").modal("show");
+
+            var editUrl = "{{ route('dept_group.update', ':deptGrp') }}";
+            editUrl = editUrl.replace(":deptGrp", deptGrp);
+            $("#editModal form").attr("action", editUrl);
         });
-        $("#add-x-button").on("click", function () {
-            // Clear any existing error messages
-            $("#add-dept-grp-error").text("");
-            $("#add-dept-grp-name-error").text("");
+
+        // Function to handle the add button click
+        $("#add-button").on("click", function () {
+            $("#addDeptGrpModal").modal("show");
         });
-
-            $(".edit-button").on("click", function () {
-                var deptGrp = $(this).data("dept-grp");
-                var deptGrpName = $(this).data("dept-grp-name");
-                var campusCode = $(this).data("campus-code");
-
-                $("#edit-dept-grp").val(deptGrp);
-                $("#edit-dept-grp-name").val(deptGrpName);
-                $("#edit-campus-code").val(campusCode);
-                $("#editModal").modal("show");
-
-                var editUrl = "{{ route('dept_group.update', ':deptGrp') }}";
-                editUrl = editUrl.replace(":deptGrp", deptGrp);
-                $("#editModal form").attr("action", editUrl);
-            });
-
-            $("#add-button").on("click", function() {
-                $("#addDeptGrpModal").modal("show");
-            });
 
     });
 </script>
