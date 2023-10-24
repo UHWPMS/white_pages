@@ -256,30 +256,17 @@
             deleteUrl = deleteUrl.replace(":deptGrp", deptGrp);
             $("#delete-form").attr("action", deleteUrl);
         });
-        $(document).ready(function () {
-            $('#table').DataTable();
-            $("#edit-close-button").on("click", function () {
-                // Clear any existing error messages
-                $("#edit-dept-grp-error").text("");
-                $("#edit-dept-grp-name-error").text("");
-            });
-            $("#add-close-button").on("click", function () {
-                // Clear any existing error messages
-                $("#add-dept-grp-error").text("");
-                $("#add-dept-grp-name-error").text("");
-            });
 
-            $("#edit-x-button").on("click", function () {
-                // Clear any existing error messages
-                $("#edit-dept-grp-error").text("");
-                $("#edit-dept-grp-name-error").text("");
-            });
-            $("#add-x-button").on("click", function () {
-                // Clear any existing error messages
-                $("#add-dept-grp-error").text("");
-                $("#add-dept-grp-name-error").text("");
-            });
-
+        $("#add-close-button").on("click", function () {
+            // Clear any existing error messages
+            $("#add-dept-grp-error").text("");
+            $("#add-dept-grp-name-error").text("");
+        });
+        $("#add-x-button").on("click", function () {
+            // Clear any existing error messages
+            $("#add-dept-grp-error").text("");
+            $("#add-dept-grp-name-error").text("");
+        });
 
             $(".edit-button").on("click", function () {
                 var deptGrp = $(this).data("dept-grp");
@@ -299,8 +286,6 @@
             $("#add-button").on("click", function() {
                 $("#addDeptGrpModal").modal("show");
             });
-            
-        });
 
     });
 </script>
