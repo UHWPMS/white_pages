@@ -257,6 +257,7 @@
             $("#delete-form").attr("action", deleteUrl);
         });
         $(document).ready(function () {
+            $('#table').DataTable();
             $("#edit-close-button").on("click", function () {
                 // Clear any existing error messages
                 $("#edit-dept-grp-error").text("");
