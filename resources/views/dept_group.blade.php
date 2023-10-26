@@ -10,38 +10,104 @@
     <script src="http://parsleyjs.org/dist/parsley.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        .dataTables_wrapper .dataTables_paginate .paginate_button {
+        .paginate_button {
+            border: 1px solid lightgray;
             padding: 6px 12px;
             margin-right: 5px;
-            border: 1px solid #007bff;
-            background-color: #fff;
-            color: #007bff;
-            border-radius: 4px;
             cursor: pointer;
         }
 
-        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-            background-color: #007bff;
-            color: #fff;
+        .paginate_button.disabled {
+            background-color: lightgray;
+            border-radius: 5px;
+        }
+
+        .paginate_button a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .paginate_button.active {
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            background-color: #91CDC9;
+        }
+
+        .paginate_button.disable {
+            color: gray;
+        }
+
+        table.dataTable {
+            border-collapse: collapse !important;
+            border: 1px solid lightgray;
+            margin-top: 20px !important;
+            margin-bottom: 20px !important;
+        }
+
+        .table th {
+            background-color: #535353 !important;
+            color: white;
+            height: 33px !important;
+            text-align: center;
         }
 
         .dataTables_wrapper .dataTables_paginate {
-            float: right;
+            float: right !important;
         }
 
-        .form-group {
-            margin-bottom: 20px; /* You can adjust the value to control the amount of space */
+        .dataTables_filter input {
+            border: 1px solid #AFAEAE;
+            border-radius: 30px;
+            padding: 20px;
+            width: 280px;
+            height: 50px;
+        }
+
+        .title-background {
+            background-color: #91CDC9;
+            padding-left: 70px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        .inline-components-parent {
+            display: flex;
+            padding-top: 20px;
+            justify-content: space-between;
+        }
+
+        .add-department-group {
+            background-color: #91CDC9;
+            border: none;
+            padding: 5px 30px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 30px;
+            float: right;
+            height: 50px;
+        }
+
+        .btn-custom {
+            width: 60px;
         }
     </style>
     @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
 <body>
 <div id="header"></div>
-<br>
+<div class="title-background">
+    <h3>Manage Department Groupings</h3>
+</div>
+<br/>
 <div class="container">
-    <h1 style="text-align: center" ;>Manage Department Groupings</h1>
     <div id="sidebar"></div>
-    <br>
+<!--    <div class="inline-components-parent">-->
+<!--        <div class="dataTables_filter">-->
+<!--            <input type="search" class="form-control" id="table_filter" placeholder="Search">-->
+<!--        </div>-->
+<!--    </div>-->
     @if(count($data)>0)
     @if ($errors->any())
     <h6 class="alert alert-danger">
@@ -49,14 +115,14 @@
         @foreach ($errors->all() as $error)
         &#9888; {{ $error }}<br>
         @endforeach
-        Try to re-updated!
+        Please revise and resubmit to update record!
     </h6>
     @endif
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDeptGrpModal">
+    <button id="add-button" type="button" class="add-department-group" data-bs-toggle="modal" data-bs-target="#addDeptGrpModal">
         Add Department Group
     </button>
-    <table id="table" class="table table-hover">
-        <thead>
+    <table id="table" class="table table-bordered table-hover">
+        <thead class="table-header-color align-middle">
         <th>Campus Code</th>
         <th>Group Number</th>
         <th>Department Group Name</th>
@@ -65,12 +131,13 @@
         </thead>
         <tbody>
         @foreach($data as $item)
-        <tr>
+        <tr class="align-middle">
             <td>{{$item->campus_code}}</td>
             <td>{{$item->dept_grp}}</td>
             <td>{{$item->dept_grp_name}}</td>
-            <td>
-                <button class="btn btn-primary edit-button"
+            <td style="text-align: center;">
+                <button class="btn edit-button btn-custom"
+                        style="background-color: #86C2F1;"
                         data-dept-grp="{{ $item->dept_grp }}"
                         data-dept-grp-name="{{ $item->dept_grp_name }}"
                         data-campus-code="{{ $item->campus_code }}"
@@ -78,8 +145,9 @@
                     <i class="fa fa-pencil"></i>
                 </button>
             </td>
-            <td>
-                <button class="btn btn-danger delete-button"
+            <td style="text-align: center;">
+                <button class="btn delete-button btn-custom"
+                        style="background-color: #CB5D5D;"
                         data-dept-grp="{{ $item->dept_grp }}"
                         data-dept-grp-name="{{ $item->dept_grp_name }}"
                         data-campus-code="{{ $item->campus_code }}"
@@ -122,7 +190,6 @@
             </div>
         </div>
     </div>
-
     <!-- Edit Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
          aria-hidden="true">
@@ -170,9 +237,55 @@
             </div>
         </div>
     </div>
+    <!-- Add Modal -->
+    <div class="modal fade" id="addDeptGrpModal" tabindex="-1" aria-labelledby="addDeptGrpModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDeptGrpModalLabel">Add Department Group</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
+                            id="add-x-button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for adding a new Department Group -->
+                    <form action="{{route('dept_group.store')}}" method="POST" id="addDeptGrpForm">
+                        @csrf
+                        <div class="form-group">
+                            <label for="dept_grp">Group Number</label>
+                            <input type="text" class="form-control" id="dept_grp" name="dept_grp" required minlength="6"
+                                   maxlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="dept_grp_name">Department Group Name</label>
+                            <input type="text" class="form-control" id="dept_grp_name" name="dept_grp_name" required
+                                   minlength="3" maxlength="60">
+                        </div>
+                        <div class="form-group">
+                            <label for="campus_code">Campus Code</label>
+                            <select name="campus_code" class="form-control" id="add-campus-code">
+                                @foreach($campusData as $item)
+                                <option value="{{$item}}">{{$item}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    id="add-close-button">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     @else
     <div class="alert alert-info" role="alert">
-        No items to display.
+        No Department Groups to display.
     </div>
     @endif
 
@@ -184,15 +297,25 @@
         $("#table").DataTable({
             "pagingType": "simple_numbers",
             "language": {
+                "emptyTable": "The Department Groups table is empty",
+                "lengthMenu": "Display _MENU_ groups",
+                "loadingRecords": "Loading...",
+                "processing": "Processing...",
+                "zeroRecords": "No search results found",
                 "paginate": {
                     "next": "Next",
                     "previous": "Previous"
                 }
-            }
+            },
+            // Has table length, table info, and pagination in same row
+            //"dom": "<'row'<'col-sm-12'tr>><'row'<'col-sm-5'l><'col-sm-3'i><'col-sm-4'p>>",
+            // Moves "Show <10> entries" to bottom of table
+            // "dom": "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-4'li><'col-sm-8'p>>",
+            // info: false,
+            label: false
         });
-
         // Function to handle the delete button click
-        $(".delete-button").on("click", function () {
+        $("#table").on("click", ".delete-button", function () {
             var deptGrp = $(this).data("dept-grp");
             var deptGrpName = $(this).data("dept-grp-name");
             var campusCode = $(this).data("campus-code");
@@ -202,13 +325,13 @@
             $("#delete-campus-code").text(campusCode);
             $("#deleteModal").modal("show");
 
-            // Update the form action with the correct URL
             var deleteUrl = "{{ route('dept_group.destroy', ':deptGrp') }}";
             deleteUrl = deleteUrl.replace(":deptGrp", deptGrp);
             $("#delete-form").attr("action", deleteUrl);
         });
+
         // Function to handle the delete button click
-        $(".edit-button").on("click", function () {
+        $("#table").on("click", ".edit-button", function () {
             var deptGrp = $(this).data("dept-grp");
             var deptGrpName = $(this).data("dept-grp-name");
             var campusCode = $(this).data("campus-code");
@@ -218,10 +341,14 @@
             $("#edit-campus-code").val(campusCode);
             $("#editModal").modal("show");
 
-            // Update the form action with the correct URL
             var editUrl = "{{ route('dept_group.update', ':deptGrp') }}";
             editUrl = editUrl.replace(":deptGrp", deptGrp);
             $("#editModal form").attr("action", editUrl);
+        });
+
+        // Function to handle the add button click
+        $("#add-button").on("click", function () {
+            $("#addDeptGrpModal").modal("show");
         });
 
     });
