@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DeptGroup;
+use App\Models\Campus;
 
 class DeptGroupController extends Controller
 {
     public function index(){
         $data = DeptGroup::all();
-        return view('dept_group',['data' => $data]);
+        $campusData = Campus::distinct()->pluck('campus_code');
+        return view('dept_group', ['data' => $data, 'campusData' => $campusData]);
     }
 
     public function destroy($dept_grp,)
