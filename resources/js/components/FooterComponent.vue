@@ -42,7 +42,7 @@
             <hr class="w-100 clearfix d-md-none"/>
 
             <!-- Grid column -->
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
               <p style="margin: 0;">
                 <a class="non-dotted-links">Calendar</a>
               </p>
@@ -70,7 +70,7 @@
             <hr class="w-100 clearfix d-md-none"/>
 
             <!-- Grid column -->
-            <div class="col-md-4 col-lg-4 col-x1-2 mx-auto mt-3">
+            <div class="col-md-3 col-lg-3 col-x1-2 mx-auto mt-3">
               <div class="link-container">
                 <p><i class="fas fa-twitter"></i></p>
                 <p><i class="fas fa-twitter"></i></p>
