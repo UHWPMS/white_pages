@@ -12,5 +12,4 @@ class DeptGroup extends Model
     protected $table = 'dept_group';
     protected $fillable = ['campus_code','dept_grp','dept_grp_name'];
     public $timestamps = false;
-
 }
