@@ -85,6 +85,7 @@
             font-size: 16px;
             cursor: pointer;
             border-radius: 30px;
+            float: right;
             height: 50px;
         }
 
@@ -102,14 +103,11 @@
 <br/>
 <div class="container">
     <div id="sidebar"></div>
-    <div class="inline-components-parent">
-        <div class="dataTables_filter">
-            <input type="search" class="form-control" id="table_filter" placeholder="Search">
-        </div>
-        <button type="button" class="add-department-group" data-bs-toggle="modal" data-bs-target="#addDeptGrpModal">
-            Add Department Group
-        </button>
-    </div>
+<!--    <div class="inline-components-parent">-->
+<!--        <div class="dataTables_filter">-->
+<!--            <input type="search" class="form-control" id="table_filter" placeholder="Search">-->
+<!--        </div>-->
+<!--    </div>-->
     @if(count($data)>0)
     @if ($errors->any())
     <h6 class="alert alert-danger">
@@ -120,6 +118,9 @@
         Try to re-updated!
     </h6>
     @endif
+    <button type="button" class="add-department-group" data-bs-toggle="modal" data-bs-target="#addDeptGrpModal">
+        Add Department Group
+    </button>
     <table id="table" class="table table-bordered table-hover">
         <thead class="table-header-color align-middle">
         <th>Campus Code</th>
@@ -260,8 +261,8 @@
                     "previous": "Previous"
                 }
             },
-            // Has table length, table info, and pagination in same row 
-            "dom": "<'row'<'col-sm-12'tr>><'row'<'col-sm-5'l><'col-sm-3'i><'col-sm-4'p>>",
+            // Has table length, table info, and pagination in same row
+            //"dom": "<'row'<'col-sm-12'tr>><'row'<'col-sm-5'l><'col-sm-3'i><'col-sm-4'p>>",
             // Moves "Show <10> entries" to bottom of table
             // "dom": "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-4'li><'col-sm-8'p>>",
             // info: false,
