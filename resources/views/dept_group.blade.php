@@ -115,10 +115,10 @@
         @foreach ($errors->all() as $error)
         &#9888; {{ $error }}<br>
         @endforeach
-        Try to re-updated!
+        Please revise and resubmit to update record!
     </h6>
     @endif
-    <button type="button" class="add-department-group" data-bs-toggle="modal" data-bs-target="#addDeptGrpModal">
+    <button id="add-button" type="button" class="add-department-group" data-bs-toggle="modal" data-bs-target="#addDeptGrpModal">
         Add Department Group
     </button>
     <table id="table" class="table table-bordered table-hover">
@@ -237,9 +237,55 @@
             </div>
         </div>
     </div>
+    <!-- Add Modal -->
+    <div class="modal fade" id="addDeptGrpModal" tabindex="-1" aria-labelledby="addDeptGrpModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDeptGrpModalLabel">Add Department Group</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
+                            id="add-x-button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for adding a new Department Group -->
+                    <form action="{{route('dept_group.store')}}" method="POST" id="addDeptGrpForm">
+                        @csrf
+                        <div class="form-group">
+                            <label for="dept_grp">Group Number</label>
+                            <input type="text" class="form-control" id="dept_grp" name="dept_grp" required minlength="6"
+                                   maxlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="dept_grp_name">Department Group Name</label>
+                            <input type="text" class="form-control" id="dept_grp_name" name="dept_grp_name" required
+                                   minlength="3" maxlength="60">
+                        </div>
+                        <div class="form-group">
+                            <label for="campus_code">Campus Code</label>
+                            <select name="campus_code" class="form-control" id="add-campus-code">
+                                @foreach($campusData as $item)
+                                <option value="{{$item}}">{{$item}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    id="add-close-button">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     @else
     <div class="alert alert-info" role="alert">
-        No items to display.
+        No Department Groups to display.
     </div>
     @endif
 
@@ -268,9 +314,8 @@
             // info: false,
             label: false
         });
-
         // Function to handle the delete button click
-        $(".delete-button").on("click", function () {
+        $("#table").on("click", ".delete-button", function () {
             var deptGrp = $(this).data("dept-grp");
             var deptGrpName = $(this).data("dept-grp-name");
             var campusCode = $(this).data("campus-code");
@@ -280,13 +325,13 @@
             $("#delete-campus-code").text(campusCode);
             $("#deleteModal").modal("show");
 
-            // Update the form action with the correct URL
             var deleteUrl = "{{ route('dept_group.destroy', ':deptGrp') }}";
             deleteUrl = deleteUrl.replace(":deptGrp", deptGrp);
             $("#delete-form").attr("action", deleteUrl);
         });
+
         // Function to handle the delete button click
-        $(".edit-button").on("click", function () {
+        $("#table").on("click", ".edit-button", function () {
             var deptGrp = $(this).data("dept-grp");
             var deptGrpName = $(this).data("dept-grp-name");
             var campusCode = $(this).data("campus-code");
@@ -296,10 +341,14 @@
             $("#edit-campus-code").val(campusCode);
             $("#editModal").modal("show");
 
-            // Update the form action with the correct URL
             var editUrl = "{{ route('dept_group.update', ':deptGrp') }}";
             editUrl = editUrl.replace(":deptGrp", deptGrp);
             $("#editModal form").attr("action", editUrl);
+        });
+
+        // Function to handle the add button click
+        $("#add-button").on("click", function () {
+            $("#addDeptGrpModal").modal("show");
         });
 
     });
