@@ -26,7 +26,7 @@
             <!-- Grid column -->
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
               <p style="margin: 0;">
-                An 
+                An
                 <a class="dotted-links" href="#">equal opportunity/ </a>
                 <a class="dotted-links" href="#">affirmative action institution</a>
               </p>
@@ -70,7 +70,7 @@
             <hr class="w-100 clearfix d-md-none"/>
 
             <!-- Grid column -->
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <div class="col-md-4 col-lg-4 col-x1-2 mx-auto mt-3">
               <div class="link-container">
                 <p><i class="fas fa-twitter"></i></p>
                 <p><i class="fas fa-twitter"></i></p>
@@ -79,7 +79,7 @@
                 <p><i class="fas fa-twitter"></i></p>
                 <p><i class="fas fa-twitter"></i></p>
               </div>
-              <div class="link-container">
+              <div class="column 4">
                 <p class="font-weight-bold">
                   <a class="dotted-links" href="#">Contact UH</a>
                 </p>
