@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use http\Message;
 use Illuminate\Http\Request;
 use App\Models\DeptGroup;
-use App\Models\Campus;
 
 class DeptGroupController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         $data = DeptGroup::all();
-        $campusData = Campus::distinct()->pluck('campus_code');
-        return view('dept_group', ['data' => $data, 'campusData' => $campusData]);
+        return view('dept_group',['data' => $data]);
     }
 
     public function destroy($dept_grp,)
@@ -86,6 +82,5 @@ class DeptGroupController extends Controller
         ]);
         return redirect() ->route('dept_group.index');
     }
-
 
 }
