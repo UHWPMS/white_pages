@@ -21,7 +21,7 @@
             </div>
             <!-- Grid column -->
 
-            <hr class="w-100 clearfix d-md-none"/>
+                        <hr class="w-100 clearfix d-md-none"/>
 
             <!-- Grid column -->
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
@@ -39,7 +39,7 @@
             </div>
             <!-- Grid column -->
 
-            <hr class="w-100 clearfix d-md-none"/>
+                        <hr class="w-100 clearfix d-md-none"/>
 
             <!-- Grid column -->
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
@@ -167,3 +167,5 @@
     font-size: small;
 }
 </style>
+<script setup>
+</script>
