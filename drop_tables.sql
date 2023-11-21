@@ -17,4 +17,6 @@ drop table if exists migrations cascade;
 drop table if exists person_department cascade;
 drop table if exists pperson_department cascade;
 drop table if exists personal_access_tokens cascade;
+drop view if exists dept_person_view cascade;
+drop view if exists person_role_view cascade;
 set foreign_key_checks=1;
