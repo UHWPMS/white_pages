@@ -31,7 +31,7 @@ aside {
     transition: width 0.3s;
 }
 aside.expanded {
-    width: 20%;
+    width: 15vw;
     transition: width 0.3s;
 }
 
@@ -140,6 +140,16 @@ main {
 .offcanvas-body {
     overflow: hidden !important;
 }
+
+
+
+/*********** Page Links ***********/
+.page-links-wrapper {
+    display: flex;
+    height: 100%;
+    flex-flow: column;
+    justify-content: space-between;
+}
 .page-link {
     text-decoration: none;
     color: white;
@@ -172,6 +182,10 @@ main {
     width: 90%;
     visibility: visible;
     transition: width 0.3s, opacity 0.3s;
+}
+
+.user-page-links .page-link {
+    margin: 2% 5%;
 }
 
 /**********************************************/
@@ -299,3 +313,49 @@ table.dataTable {
 .alert-info {
     margin-bottom: 0;
 }
+
+
+
+/**********************************************/
+/*********** Table Component Styles ***********/
+/**********************************************/
+
+
+.add-button {
+    background-color: #91CDC9;
+    border: none;
+    padding: 5px 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 30px;
+    float: right;
+    height: 40px;
+}
+.edit-button {
+    background-color: rgba(134, 194, 241);
+}
+.delete-button {
+    background-color: rgba(203, 93, 93)
+}
+button:hover {
+    opacity: 0.8;
+}
+.fa-icon {
+    color: white;
+}
+
+
+
+/**********************************************/
+/*********** Custom Bootstrap Styles **********/
+/**********************************************/
+.row {
+    align-items: baseline;
+}
+.container {
+    padding-left: 0;
+    padding-right: 0;
+}
+

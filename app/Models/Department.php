@@ -10,7 +10,6 @@ class Department extends Model
     use HasFactory;
 
     protected $table = 'Department';
-
     protected $fillable = [
         'campus_id',
         'group_no',

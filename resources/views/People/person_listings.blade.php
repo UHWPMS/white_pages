@@ -9,17 +9,17 @@
 
         <br/>
         @if ($errors->any())
-        <h6 class="alert alert-danger mt-4">
-            <strong>The Person was not updated successfully</strong>
-            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" style="position: absolute; top:10px; right: 10px;">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <br>
-            @foreach ($errors->all() as $error)
-            &#9888; {{ $error }}<br>
-            @endforeach
-            Please revise and resubmit to update person record!
-        </h6>
+            <h6 class="alert alert-danger mt-4">
+                <strong>The Person was not updated successfully</strong>
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" style="position: absolute; top:10px; right: 10px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <br>
+                @foreach ($errors->all() as $error)
+                &#9888; {{ $error }}<br>
+                @endforeach
+                Please revise and resubmit to update person record!
+            </h6>
         @endif
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
