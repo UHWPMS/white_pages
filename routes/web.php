@@ -8,7 +8,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnnouncementController;
-
+use App\Http\Controllers\PersonRoleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,8 +34,8 @@ Route::post('person_listings', [PersonController::class, 'store'])->name('person
 
 //Route::get('/dept_groups',[DeptGroupController::class, 'index'])->name('dept_groups');
 Route::get('/dept_contacts',[DeptContactController::class, 'index'])->name('dept_contacts');
-Route::put('/dept_contacts/{pid}/update/{role_id}',[PersonRoleController::class, 'update'])->name('dept_contacts.update');
-Route::delete('/dept_contacts/{pid}', [PersonRoleController::class, 'destroy'])->name('dept_contacts.destroy');
+Route::get('/manage_roles', [PersonRoleController::class, 'index'])->name('manage_roles');
+Route::put('/person_role/{id}',[PersonRoleController::class, 'update'])->name('person_role.update');
 Route::get('/department_listings',[DepartmentController::class, 'index'])->name('department_listings');
 Route::get('/announcements',[AnnouncementController::class, 'index'])->name('announcements');
 Route::get('/admins',[AdminController::class, 'index'])->name('admins');

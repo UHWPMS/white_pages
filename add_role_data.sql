@@ -3,4 +3,5 @@ insert into Role (name) values
     ("Primary"),
     ("Secondary"),
     ("Admin"),
-    ("HelpDesk");
+    ("HelpDesk"),
+    ("SuperAdmin");
