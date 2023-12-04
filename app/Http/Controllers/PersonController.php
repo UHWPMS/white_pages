@@ -35,16 +35,16 @@ class PersonController extends Controller
                                     'type' => gettype($person['name']),
                                     'inputType' => 'text'
                                 ],
-                'department_name' => ['columnName' => 'Department Name', 
-                                    'name' => 'dept_name', 
-                                    'value' => $department->name,
-                                    'type' => gettype($department->name),
-                                    'inputType' => 'text'
-                                ],
+                // 'department_name' => ['columnName' => 'Department Name', 
+                //                     'name' => 'dept_name', 
+                //                     'value' => $department->name,
+                //                     'type' => gettype($department->name),
+                //                     'inputType' => 'text'
+                //                 ],
             ];
         });
 
-        dd($data);
+        // dd($data);
 
         return view('People.person_listings',['personData'=> $personData, 'pendingPersonData'=>$pendingPersonData]);
     }
