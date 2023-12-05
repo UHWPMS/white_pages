@@ -783,26 +783,26 @@
                 .then(data => {
                     oldData = data;
 
-                $("#old-username").text(oldData.username);
-                $("#old-name").text(oldData.name);
-                $("#old-name-of-record").text(oldData.name_of_record);
-                $("#old-job-title").text(oldData.job_title);
-                $("#old-email").text(oldData.email);
-                $("#old-alias-email").text(oldData.alias_email);
-                $("#old-phone").text(oldData.phone);
-                $("#old-location").text(oldData.location);
-                $("#old-fax").text(oldData.fax);
-                $("#old-website").text(oldData.website);
-                $("#old-publishable option").filter(function() {
-                    return $(this).text() === oldData.publishable;
-                }).prop('selected', true);
-
                 console.log(oldData);
-                });
+                })
                 .catch(error => {
                     console.log('Failed to fetch old data', error);
                 });
             }
+
+            $("#old-username").text(oldData.username);
+            $("#old-name").text(oldData.name);
+            $("#old-name-of-record").text(oldData.nameOfRecord);
+            $("#old-job-title").text(oldData.jobTitle);
+            $("#old-email").text(oldData.email);
+            $("#old-alias-email").text(oldData.aliasEmail);
+            $("#old-phone").text(oldData.phone);
+            $("#old-location").text(oldData.location);
+            $("#old-fax").text(oldData.fax);
+            $("#old-website").text(oldData.website);
+            $("#old-publishable option").filter(function() {
+                return $(this).text() === oldData.publishable;
+            }).prop('selected', true);
 
             $("#approve-username").val(personUsername);
             $("#approve-name").val(personName);

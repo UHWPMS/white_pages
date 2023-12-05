@@ -382,10 +382,10 @@ class PersonController extends Controller
 
     public function getOldData(Request $req, $pendingUsername)
     {
-        $pendingPerson = PendingPerson::where('username', $req->$pendingUsername)->first();
+        $pendingPerson = PendingPerson::where('username', $pendingUsername)->first();
 
         if ($pendingPerson) {
-            $pendingPersonId = $pendingPerson->person_id;
+            $pendingPersonId = $pendingPerson->personId;
             $oldData = Person::where('id', $pendingPersonId)->where('username', $pendingUsername)->first();
 
             return view('People.person_listings', ['oldData' => json_encode($oldData)]);
