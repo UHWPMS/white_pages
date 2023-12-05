@@ -526,20 +526,53 @@
                         <div class="row flex-nowrap">
                             <div class="col-md-6">
                                 <h4>Original</h4>
-                                <b>Username</b>: <span id="old-username"></span><br>
-                                <b>Name</b>: <span id="old-name"></span><br>
-                                <b>Name of Record</b>: <span id="old-name-of-record"></span><br>
-                                <b>Job Title</b>: <span id="old-job-title"></span><br>
-                                <b>Email</b>: <span id="old-email"></span><br>
-                                <b>Alias Email</b>: <span id="old-alias-email"></span><br>
-                                <b>Phone</b>: <span id="old-phone"></span><br>
-                                <b>Location</b>: <span id="old-location"></span><br>
-                                <b>Fax</b>: <span id="old-fax"></span><br>
-                                <b>Website</b>: <span id="old-website"></span><br>
-                                <b>Publishable</b>: <span id="old-publishable"></span><br>
-                                <b>Last Approved</b>: <span id="old-last-approved-at"></span><br>
-                                <b>Approved By</b>: <span id="old-last-approved-by"></span><br>
-                                <br>
+                                <div class="form-group">
+                                    <label for="old-username">Username</label>
+                                    <input type="text" name="username" class="form-control" id="old-username" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-name">Name</label>
+                                    <input type="text" name="name" class="form-control" id="old-name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-name-of-record">Name of Record</label>
+                                    <input type="text" name="name_of_record" class="form-control" id="old-name-of-record" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-job-title">Job Title</label>
+                                    <input type="text" name="job_title" class="form-control" id="old-job-title" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-email">Email</label>
+                                    <input type="text" name="email" class="form-control" id="old-email" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-alias-email">Alias Email</label>
+                                    <input type="text" name="alias_email" class="form-control" id="old-alias-email" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-phone">Phone</label>
+                                    <input type="text" name="phone" class="form-control" id="old-phone" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-location">Location</label>
+                                    <input type="text" name="location" class="form-control" id="old-location" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-fax">Fax</label>
+                                    <input type="text" name="fax" class="form-control" id="old-fax" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-website">Website</label>
+                                    <input type="text" name="website" class="form-control" id="old-website" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-publishable">Publishable</label>
+                                    <select name="publishable" class="form-control" id="old-publishable" disabled>
+                                        <option value="true">True</option>
+                                        <option value="false">False</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <h4>Pending Changes</h4>
@@ -781,19 +814,29 @@
                     type: 'GET',
                     url: '/get-old-data/' + encodeURIComponent(personUsername),
                     success: function(oldData) {
-                        $("#old-username").text(oldData.username);
-                        $("#old-name").text(oldData.name);
-                        $("#old-name-of-record").text(oldData.name_of_record);
-                        $("#old-job-title").text(oldData.job_title);
-                        $("#old-email").text(oldData.email);
-                        $("#old-alias-email").text(oldData.alias_email);
-                        $("#old-phone").text(oldData.phone);
-                        $("#old-location").text(oldData.location);
-                        $("#old-fax").text(oldData.fax);
-                        $("#old-website").text(oldData.website);
+                        $("#old-username").val(oldData.username);
+                        $("#old-name").val(oldData.name);
+                        $("#old-name-of-record").val(oldData.name_of_record);
+                        $("#old-job-title").val(oldData.job_title);
+                        $("#old-email").val(oldData.email);
+                        $("#old-alias-email").val(oldData.alias_email);
+                        $("#old-phone").val(oldData.phone);
+                        $("#old-location").val(oldData.location);
+                        $("#old-fax").val(oldData.fax);
+                        $("#old-website").val(oldData.website);
                         $("#old-publishable option").filter(function() {
                             return $(this).text() === oldData.publishable;
                         }).prop('selected', true);
+
+                        $('#approvePersonModal input').each(function () {
+                            var field = $(this).attr("name");
+
+                            if ($(this).val() != oldData[field] && oldData[field] != undefined) {
+                                $(this).css("background-color", "#FFFBC8");
+                            } else {
+                                $(this).css("background-color", "");
+                            }
+                        })
 
                         console.log(oldData);
                     },
@@ -801,16 +844,6 @@
                         console.log('Failed to fetch old data', error);
                     }
                 });
-                // fetch('{{ url("/get-old-data/") }}/' + encodeURIComponent(personUsername))
-                // .then(response => response.json())
-                // .then(data => {
-                //     oldData = data;
-
-                // console.log(oldData);
-                // })
-                // .catch(error => {
-                //     console.log('Failed to fetch old data', error);
-                // });
             }
 
             $("#approve-username").val(personUsername);
