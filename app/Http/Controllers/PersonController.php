@@ -385,11 +385,13 @@ class PersonController extends Controller
         $pendingPerson = PendingPerson::where('username', $pendingUsername)->first();
 
         if ($pendingPerson) {
-            $pendingPersonId = $pendingPerson->personId;
-            $oldData = Person::where('id', $pendingPersonId)->where('username', $pendingUsername)->first();
-
-            //return view('People.person_listings', ['oldData' => json_encode($oldData)]);
-            return response()->json($oldData);
+            $existingPerson = Person::find($pendingPerson->person_id);
+            
+            if ($existingPerson)
+            {
+                //return view('People.person_listings', ['oldData' => json_encode($oldData)]);
+                return response()->json($existingPerson);
+            }
         }
     }
 }

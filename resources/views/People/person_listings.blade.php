@@ -427,7 +427,7 @@
         <div class="modal-content">
             <form action="{{ route('person_listings.update', ':personUsername' ) }}" method="POST">
                 @csrf
-                @method('POST')
+                @method('PUT')
                 <div class="modal-header" style="background-color: #86C2F1;">
                     <h5 class="modal-title" id="editModalLabel">Edit Person</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
@@ -510,7 +510,7 @@
 <!-- Approve Modal with Editing -->
 <div class="modal fade" id="approvePersonModal" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <form action="{{ route('person_listings.approve', ':personUsername' ) }}" method="POST">
                 @csrf
@@ -523,28 +523,26 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="container-fliud">
-                        <div class="row">
+                        <div class="row flex-nowrap">
                             <div class="col-md-6">
                                 <h4>Original</h4>
-                                <br><br>
                                 <b>Username</b>: <span id="old-username"></span><br>
-                                <b>Name</b>: <span id="old-person-name"></span><br>
-                                <b>Name of Record</b>: <span id="old-person-name-of-record"></span><br>
-                                <b>Job Title</b>: <span id="old-person-job-title"></span><br>
-                                <b>Email</b>: <span id="old-person-email"></span><br>
-                                <b>Phone</b>: <span id="old-person-phone"></span><br>
-                                <b>Location</b>: <span id="old-person-location"></span><br>
-                                <b>Fax</b>: <span id="old-person-fax"></span><br>
-                                <b>Website</b>: <span id="old-person-website"></span><br>
-                                <b>Publishable</b>: <span id="old-person-publishable"></span><br>
-                                <b>Last Approved</b>: <span id="old-person-last-approved-at"></span><br>
-                                <b>Approved By</b>: <span id="old-person-last-approved-by"></span><br>
+                                <b>Name</b>: <span id="old-name"></span><br>
+                                <b>Name of Record</b>: <span id="old-name-of-record"></span><br>
+                                <b>Job Title</b>: <span id="old-job-title"></span><br>
+                                <b>Email</b>: <span id="old-email"></span><br>
+                                <b>Alias Email</b>: <span id="old-alias-email"></span><br>
+                                <b>Phone</b>: <span id="old-phone"></span><br>
+                                <b>Location</b>: <span id="old-location"></span><br>
+                                <b>Fax</b>: <span id="old-fax"></span><br>
+                                <b>Website</b>: <span id="old-website"></span><br>
+                                <b>Publishable</b>: <span id="old-publishable"></span><br>
+                                <b>Last Approved</b>: <span id="old-last-approved-at"></span><br>
+                                <b>Approved By</b>: <span id="old-last-approved-by"></span><br>
                                 <br>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
+                                <h4>Pending Changes</h4>
                                 <div class="form-group">
                                     <label for="approve-username">Username</label>
                                     <input type="text" name="username" class="form-control" id="approve-username"
@@ -604,8 +602,8 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger" id="reject-button">Reject</button>
@@ -775,19 +773,20 @@
             var personFax = $(this).data("fax");
             var personWebsite = $(this).data("website");
             var personPub = $(this).data("publishable");
-            var personPending = $(this).data("pending");
+            // var personPending = $(this).data("pending");
 
-            if (personId != null && personPending == true) {
+            // if (personId != null && personPending == true) {
+            if (personId != null) {
                 $.ajax({
                     type: 'GET',
-                    url: '/get-old-data' + encodeURIComponent(personUsername),
+                    url: '/get-old-data/' + encodeURIComponent(personUsername),
                     success: function(oldData) {
                         $("#old-username").text(oldData.username);
                         $("#old-name").text(oldData.name);
-                        $("#old-name-of-record").text(oldData.nameOfRecord);
-                        $("#old-job-title").text(oldData.jobTitle);
+                        $("#old-name-of-record").text(oldData.name_of_record);
+                        $("#old-job-title").text(oldData.job_title);
                         $("#old-email").text(oldData.email);
-                        $("#old-alias-email").text(oldData.aliasEmail);
+                        $("#old-alias-email").text(oldData.alias_email);
                         $("#old-phone").text(oldData.phone);
                         $("#old-location").text(oldData.location);
                         $("#old-fax").text(oldData.fax);
