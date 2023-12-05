@@ -134,11 +134,12 @@
                 <table id="person-listings-table" class="table table-size table-bordered mt-5">
                     <thead class="align-middle">
                     <tr>
+                        <th>Campus Code</th>
                         <th>Username</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Departments</th>
+                        <th>Department</th>
                         <th>Location</th>
                         <th>Publishable</th>
                         <th>Last Approved</th>
@@ -152,11 +153,12 @@
                     @foreach($personData as $item)
                         @if ($item->pending)
                              <tr>
+                                <td class="pending-row">{{$item->campus[0]->code}}</td>
                                 <td class="pending-row">{{$item->username}}</td>
                                 <td class="pending-row">{{$item->name}}</td>
                                 <td class="pending-row">{{$item->email}}</td>
                                 <td class="pending-row"> {{$item->phone}}</td>
-                                <td class="pending-row"> {{$item->departments[0]["name"]}}</td>
+                                <td class="pending-row"> {{$item->department[0]["name"]}}</td>
                                 <td class="pending-row">{{$item->location}}</td>
                                 <td class="pending-row">{{$item->publishable  ? 'True' : 'False' }}</td>
                                 <td class="pending-row">{{$item->lastApprovedAt}}</td>
@@ -224,11 +226,12 @@
                             </tr>
                         @else
                             <tr>
-                                <td class="">{{$item->username}}</td>
+                                <td>{{$item->campus[0]->code}}</td>
+                                <td>{{$item->username}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->email}}</td>
                                 <td>{{$item->phone}}</td>
-                                <td>{{$item->departments[0]["name"]}}</td>
+                                <td>{{$item->department[0]["name"]}}</td>
                                 <td>{{$item->location}}</td>
                                 <td>{{$item->publishable  ? 'True' : 'False' }}</td>
                                 <td>{{$item->lastApprovedAt}}</td>
@@ -305,10 +308,12 @@
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                 <table id="pending-persons-table" class="table table-size table-bordered mt-5">
                     <thead class="align-middle">
+                        <th>Campus Code</th>
                         <th>Username</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Department</th>
                         <th>Location</th>
                         <th>Publishable</th>
                         <th>Last Approved</th>
@@ -318,10 +323,12 @@
                     <tbody>
                     @foreach($pendingPersonData as $item)
                         <tr>
+                            <td>{{$item->person->campus[0]->code}}</td>
                             <td>{{$item->username}}</td>
                             <td>{{$item->name}}</td>
                             <td>{{$item->email}}</td>
                             <td>{{$item->phone}}</td>
+                            <td>{{$item->person->department[0]["name"]}}</td>
                             <td>{{$item->location}}</td>
                             <td>{{$item->publishable  ? 'True' : 'False' }}</td>
                             <td>{{$item->lastApprovedAt}}</td>
