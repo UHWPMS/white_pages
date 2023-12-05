@@ -55,6 +55,7 @@ Auth::routes();
     Route::post('person_listings', [PersonController::class, 'store'])->name('person_listings.store');
     Route::patch('person_listings/{username}' , 'App\Http\Controllers\PersonController@approve')->name('person_listings.approve');
     Route::delete('person_listings/{username}', 'App\Http\Controllers\PersonController@reject')->name('person_listings.reject');
+    Route::get('/get-old-data/{pendingUsername}', [PersonController::class, 'getOldData']);
 
 
     //Route::get('/dept_groups',[DeptGroupController::class, 'index'])->name('dept_groups');

@@ -3,6 +3,7 @@
 namespace App\Models;
 use App\Models\Role;
 use App\Models\Department;
+use App\Models\Campus;
 
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,9 +44,13 @@ class Person extends Model
         return $this-> belongsToMany(Role::class, 'Person_Role')->withPivot('role_id');
     }
 
-
-    public function departments() {
+    public function department() {
         return $this-> belongsToMany(Department::class, 'Person_Department', 'person_id', 'dept_id')->withPivot('dept_id');
     }
 
+    public function campus()
+    {
+        return $this->belongsToMany(Campus::class, 'Person_Department', 'person_id', 'dept_id')
+            ->withPivot('dept_id');
+    }
 };

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Person;
+use App\Models\Campus;
 
 class Department extends Model
 {
@@ -27,5 +28,4 @@ class Department extends Model
     public function people() {
         return $this->hasMany(Person::class, 'dept_id');
     }
-    
 }

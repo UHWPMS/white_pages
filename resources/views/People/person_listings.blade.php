@@ -134,11 +134,12 @@
                 <table id="person-listings-table" class="table table-size table-bordered mt-5">
                     <thead class="align-middle">
                     <tr>
+                        <th>Campus Code</th>
                         <th>Username</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Departments</th>
+                        <th>Department</th>
                         <th>Location</th>
                         <th>Publishable</th>
                         <th>Last Approved</th>
@@ -152,11 +153,12 @@
                     @foreach($personData as $item)
                         @if ($item->pending)
                              <tr>
+                                <td class="pending-row">{{$item->campus[0]->code}}</td>
                                 <td class="pending-row">{{$item->username}}</td>
                                 <td class="pending-row">{{$item->name}}</td>
                                 <td class="pending-row">{{$item->email}}</td>
                                 <td class="pending-row"> {{$item->phone}}</td>
-                                <td class="pending-row"> {{$item->departments[0]["name"]}}</td>
+                                <td class="pending-row"> {{$item->department[0]["name"]}}</td>
                                 <td class="pending-row">{{$item->location}}</td>
                                 <td class="pending-row">{{$item->publishable  ? 'True' : 'False' }}</td>
                                 <td class="pending-row">{{$item->lastApprovedAt}}</td>
@@ -224,11 +226,12 @@
                             </tr>
                         @else
                             <tr>
-                                <td class="">{{$item->username}}</td>
+                                <td>{{$item->campus[0]->code}}</td>
+                                <td>{{$item->username}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->email}}</td>
                                 <td>{{$item->phone}}</td>
-                                <td>{{$item->departments[0]["name"]}}</td>
+                                <td>{{$item->department[0]["name"]}}</td>
                                 <td>{{$item->location}}</td>
                                 <td>{{$item->publishable  ? 'True' : 'False' }}</td>
                                 <td>{{$item->lastApprovedAt}}</td>
@@ -305,10 +308,12 @@
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                 <table id="pending-persons-table" class="table table-size table-bordered mt-5">
                     <thead class="align-middle">
+                        <th>Campus Code</th>
                         <th>Username</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Department</th>
                         <th>Location</th>
                         <th>Publishable</th>
                         <th>Last Approved</th>
@@ -318,10 +323,12 @@
                     <tbody>
                     @foreach($pendingPersonData as $item)
                         <tr>
+                            <td>{{$item->person->campus[0]->code}}</td>
                             <td>{{$item->username}}</td>
                             <td>{{$item->name}}</td>
                             <td>{{$item->email}}</td>
                             <td>{{$item->phone}}</td>
+                            <td>{{$item->person->department[0]["name"]}}</td>
                             <td>{{$item->location}}</td>
                             <td>{{$item->publishable  ? 'True' : 'False' }}</td>
                             <td>{{$item->lastApprovedAt}}</td>
@@ -427,7 +434,7 @@
         <div class="modal-content">
             <form action="{{ route('person_listings.update', ':personUsername' ) }}" method="POST">
                 @csrf
-                @method('POST')
+                @method('PUT')
                 <div class="modal-header" style="background-color: #86C2F1;">
                     <h5 class="modal-title" id="editModalLabel">Edit Person</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
@@ -510,7 +517,7 @@
 <!-- Approve Modal with Editing -->
 <div class="modal fade" id="approvePersonModal" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <form action="{{ route('person_listings.approve', ':personUsername' ) }}" method="POST">
                 @csrf
@@ -523,64 +530,120 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="approve-username">Username</label>
-                        <input type="text" name="username" class="form-control" id="approve-username"
-                               required minlength="2" maxlength="60" title="Enter a username (2 to 60 characters)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-name">Name</label>
-                        <input type="text" name="name" class="form-control" id="approve-name"
-                               required minlength="2" maxlength="255" title="Enter a name (2 to 255 characters)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-name-of-record">Name of Record</label>
-                        <input type="text" name="name_of_record" class="form-control" id="approve-name-of-record"
-                               required minlength="2" maxlength="255" title="Enter a name of record (2 to 255 characters)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-job-title">Job Title</label>
-                        <input type="text" name="job_title" class="form-control" id="approve-job-title"
-                                minlength="2" maxlength="255" title="Enter a job title (2 to 255 characters)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-email">Email</label>
-                        <input type="text" name="email" class="form-control" id="approve-email"
-                               required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Enter a valid email address (e.g., example@hawaii.edu)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-alias-email">Alias Email</label>
-                        <input type="text" name="alias_email" class="form-control" id="approve-alias-email"
-                                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" maxlength="100" title="Enter a valid alias email (10 to 100 characters)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-phone">Phone</label>
-                        <input type="text" name="phone" class="form-control" id="approve-phone"
-                               required pattern="^\d{3}-\d{3}-\d{4}$" title="Enter a phone number in the format xxx-xxx-xxxx (e.g., 123-456-7890)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-location">Location</label>
-                        <input type="text" name="location" class="form-control" id="approve-location"
-                                required minlength="2" maxlength="100"  title="Enter a location (up to 100 characters)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-fax">Fax</label>
-                        <input type="text" name="fax" class="form-control" id="approve-fax"
-                                pattern="^\+?[0-9]+(\s?[-.]?\s?[0-9]+)*$" title="Enter a valid fax number, e.g., +1 808-123-4567">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-website">Website</label>
-                        <input type="text" name="website" class="form-control" id="approve-website"
-                                pattern="/(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?\/[a-zA-Z0-9]{2,}|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?)|(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})?/g;"
-                                maxlength="200" title="Enter a valid website URL (e.g., http://hawaii.edu)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-publishable">Publishable</label>
-                        <select name="publishable" class="form-control" id="approve-publishable">
-                            <option value="true">True</option>
-                            <option value="false">False</option>
-                        </select>
-                    </div>
+                        <div class="row flex-nowrap">
+                            <div class="col-md-6">
+                                <h4>Original</h4>
+                                <div class="form-group">
+                                    <label for="old-username">Username</label>
+                                    <input type="text" name="username" class="form-control" id="old-username" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-name">Name</label>
+                                    <input type="text" name="name" class="form-control" id="old-name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-name-of-record">Name of Record</label>
+                                    <input type="text" name="name_of_record" class="form-control" id="old-name-of-record" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-job-title">Job Title</label>
+                                    <input type="text" name="job_title" class="form-control" id="old-job-title" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-email">Email</label>
+                                    <input type="text" name="email" class="form-control" id="old-email" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-alias-email">Alias Email</label>
+                                    <input type="text" name="alias_email" class="form-control" id="old-alias-email" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-phone">Phone</label>
+                                    <input type="text" name="phone" class="form-control" id="old-phone" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-location">Location</label>
+                                    <input type="text" name="location" class="form-control" id="old-location" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-fax">Fax</label>
+                                    <input type="text" name="fax" class="form-control" id="old-fax" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-website">Website</label>
+                                    <input type="text" name="website" class="form-control" id="old-website" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="old-publishable">Publishable</label>
+                                    <select name="publishable" class="form-control" id="old-publishable" disabled>
+                                        <option value="true">True</option>
+                                        <option value="false">False</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>Pending Changes</h4>
+                                <div class="form-group">
+                                    <label for="approve-username">Username</label>
+                                    <input type="text" name="username" class="form-control" id="approve-username"
+                                        required minlength="2" maxlength="60" title="Enter a username (2 to 60 characters)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-name">Name</label>
+                                    <input type="text" name="name" class="form-control" id="approve-name"
+                                        required minlength="2" maxlength="255" title="Enter a name (2 to 255 characters)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-name-of-record">Name of Record</label>
+                                    <input type="text" name="name_of_record" class="form-control" id="approve-name-of-record"
+                                        required minlength="2" maxlength="255" title="Enter a name of record (2 to 255 characters)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-job-title">Job Title</label>
+                                    <input type="text" name="job_title" class="form-control" id="approve-job-title"
+                                            minlength="2" maxlength="255" title="Enter a job title (2 to 255 characters)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-email">Email</label>
+                                    <input type="text" name="email" class="form-control" id="approve-email"
+                                        required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Enter a valid email address (e.g., example@hawaii.edu)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-alias-email">Alias Email</label>
+                                    <input type="text" name="alias_email" class="form-control" id="approve-alias-email"
+                                            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" maxlength="100" title="Enter a valid alias email (10 to 100 characters)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-phone">Phone</label>
+                                    <input type="text" name="phone" class="form-control" id="approve-phone"
+                                        required pattern="^\d{3}-\d{3}-\d{4}$" title="Enter a phone number in the format xxx-xxx-xxxx (e.g., 123-456-7890)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-location">Location</label>
+                                    <input type="text" name="location" class="form-control" id="approve-location"
+                                            required minlength="2" maxlength="100"  title="Enter a location (up to 100 characters)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-fax">Fax</label>
+                                    <input type="text" name="fax" class="form-control" id="approve-fax"
+                                            pattern="^\+?[0-9]+(\s?[-.]?\s?[0-9]+)*$" title="Enter a valid fax number, e.g., +1 808-123-4567">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-website">Website</label>
+                                    <input type="text" name="website" class="form-control" id="approve-website"
+                                            pattern="/(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?\/[a-zA-Z0-9]{2,}|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?)|(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})?/g;"
+                                            maxlength="200" title="Enter a valid website URL (e.g., http://hawaii.edu)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-publishable">Publishable</label>
+                                    <select name="publishable" class="form-control" id="approve-publishable">
+                                        <option value="true">True</option>
+                                        <option value="false">False</option>
+                                    </select>
+                                </div>
+                            </div>
+                        
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger" id="reject-button">Reject</button>
@@ -737,6 +800,8 @@
 
         // Function to handle the approve button click
         $("#pending-persons-table").on("click", ".approve-button", function () {
+            var oldData = {};
+            var personId = $(this).data("personId");
             var personUsername = $(this).data("username");
             var personName = $(this).data("name");
             var personNameOfRecord = $(this).data("nameOfRecord");
@@ -748,6 +813,45 @@
             var personFax = $(this).data("fax");
             var personWebsite = $(this).data("website");
             var personPub = $(this).data("publishable");
+            // var personPending = $(this).data("pending");
+
+            // if (personId != null && personPending == true) {
+            if (personId != null) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/get-old-data/' + encodeURIComponent(personUsername),
+                    success: function(oldData) {
+                        $("#old-username").val(oldData.username);
+                        $("#old-name").val(oldData.name);
+                        $("#old-name-of-record").val(oldData.name_of_record);
+                        $("#old-job-title").val(oldData.job_title);
+                        $("#old-email").val(oldData.email);
+                        $("#old-alias-email").val(oldData.alias_email);
+                        $("#old-phone").val(oldData.phone);
+                        $("#old-location").val(oldData.location);
+                        $("#old-fax").val(oldData.fax);
+                        $("#old-website").val(oldData.website);
+                        $("#old-publishable option").filter(function() {
+                            return $(this).text() === oldData.publishable;
+                        }).prop('selected', true);
+
+                        $('#approvePersonModal input').each(function () {
+                            var field = $(this).attr("name");
+
+                            if ($(this).val() != oldData[field] && oldData[field] != undefined) {
+                                $(this).css("background-color", "#FFFBC8");
+                            } else {
+                                $(this).css("background-color", "");
+                            }
+                        })
+
+                        console.log(oldData);
+                    },
+                    error: function(error) {
+                        console.log('Failed to fetch old data', error);
+                    }
+                });
+            }
 
             $("#approve-username").val(personUsername);
             $("#approve-name").val(personName);
