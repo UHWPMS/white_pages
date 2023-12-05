@@ -523,63 +523,88 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="approve-username">Username</label>
-                        <input type="text" name="username" class="form-control" id="approve-username"
-                               required minlength="2" maxlength="60" title="Enter a username (2 to 60 characters)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-name">Name</label>
-                        <input type="text" name="name" class="form-control" id="approve-name"
-                               required minlength="2" maxlength="255" title="Enter a name (2 to 255 characters)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-name-of-record">Name of Record</label>
-                        <input type="text" name="name_of_record" class="form-control" id="approve-name-of-record"
-                               required minlength="2" maxlength="255" title="Enter a name of record (2 to 255 characters)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-job-title">Job Title</label>
-                        <input type="text" name="job_title" class="form-control" id="approve-job-title"
-                                minlength="2" maxlength="255" title="Enter a job title (2 to 255 characters)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-email">Email</label>
-                        <input type="text" name="email" class="form-control" id="approve-email"
-                               required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Enter a valid email address (e.g., example@hawaii.edu)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-alias-email">Alias Email</label>
-                        <input type="text" name="alias_email" class="form-control" id="approve-alias-email"
-                                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" maxlength="100" title="Enter a valid alias email (10 to 100 characters)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-phone">Phone</label>
-                        <input type="text" name="phone" class="form-control" id="approve-phone"
-                               required pattern="^\d{3}-\d{3}-\d{4}$" title="Enter a phone number in the format xxx-xxx-xxxx (e.g., 123-456-7890)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-location">Location</label>
-                        <input type="text" name="location" class="form-control" id="approve-location"
-                                required minlength="2" maxlength="100"  title="Enter a location (up to 100 characters)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-fax">Fax</label>
-                        <input type="text" name="fax" class="form-control" id="approve-fax"
-                                pattern="^\+?[0-9]+(\s?[-.]?\s?[0-9]+)*$" title="Enter a valid fax number, e.g., +1 808-123-4567">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-website">Website</label>
-                        <input type="text" name="website" class="form-control" id="approve-website"
-                                pattern="/(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?\/[a-zA-Z0-9]{2,}|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?)|(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})?/g;"
-                                maxlength="200" title="Enter a valid website URL (e.g., http://hawaii.edu)">
-                    </div>
-                    <div class="form-group">
-                        <label for="approve-publishable">Publishable</label>
-                        <select name="publishable" class="form-control" id="approve-publishable">
-                            <option value="true">True</option>
-                            <option value="false">False</option>
-                        </select>
+                    <div class="container-fliud">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>Original</h4>
+                                <br><br>
+                                <b>Username</b>: <span id="old-username"></span><br>
+                                <b>Name</b>: <span id="old-person-name"></span><br>
+                                <b>Name of Record</b>: <span id="old-person-name-of-record"></span><br>
+                                <b>Job Title</b>: <span id="old-person-job-title"></span><br>
+                                <b>Email</b>: <span id="old-person-email"></span><br>
+                                <b>Phone</b>: <span id="old-person-phone"></span><br>
+                                <b>Location</b>: <span id="old-person-location"></span><br>
+                                <b>Fax</b>: <span id="old-person-fax"></span><br>
+                                <b>Website</b>: <span id="old-person-website"></span><br>
+                                <b>Publishable</b>: <span id="old-person-publishable"></span><br>
+                                <b>Last Approved</b>: <span id="old-person-last-approved-at"></span><br>
+                                <b>Approved By</b>: <span id="old-person-last-approved-by"></span><br>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="approve-username">Username</label>
+                                    <input type="text" name="username" class="form-control" id="approve-username"
+                                        required minlength="2" maxlength="60" title="Enter a username (2 to 60 characters)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-name">Name</label>
+                                    <input type="text" name="name" class="form-control" id="approve-name"
+                                        required minlength="2" maxlength="255" title="Enter a name (2 to 255 characters)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-name-of-record">Name of Record</label>
+                                    <input type="text" name="name_of_record" class="form-control" id="approve-name-of-record"
+                                        required minlength="2" maxlength="255" title="Enter a name of record (2 to 255 characters)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-job-title">Job Title</label>
+                                    <input type="text" name="job_title" class="form-control" id="approve-job-title"
+                                            minlength="2" maxlength="255" title="Enter a job title (2 to 255 characters)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-email">Email</label>
+                                    <input type="text" name="email" class="form-control" id="approve-email"
+                                        required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Enter a valid email address (e.g., example@hawaii.edu)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-alias-email">Alias Email</label>
+                                    <input type="text" name="alias_email" class="form-control" id="approve-alias-email"
+                                            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" maxlength="100" title="Enter a valid alias email (10 to 100 characters)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-phone">Phone</label>
+                                    <input type="text" name="phone" class="form-control" id="approve-phone"
+                                        required pattern="^\d{3}-\d{3}-\d{4}$" title="Enter a phone number in the format xxx-xxx-xxxx (e.g., 123-456-7890)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-location">Location</label>
+                                    <input type="text" name="location" class="form-control" id="approve-location"
+                                            required minlength="2" maxlength="100"  title="Enter a location (up to 100 characters)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-fax">Fax</label>
+                                    <input type="text" name="fax" class="form-control" id="approve-fax"
+                                            pattern="^\+?[0-9]+(\s?[-.]?\s?[0-9]+)*$" title="Enter a valid fax number, e.g., +1 808-123-4567">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-website">Website</label>
+                                    <input type="text" name="website" class="form-control" id="approve-website"
+                                            pattern="/(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?\/[a-zA-Z0-9]{2,}|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?)|(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})?/g;"
+                                            maxlength="200" title="Enter a valid website URL (e.g., http://hawaii.edu)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="approve-publishable">Publishable</label>
+                                    <select name="publishable" class="form-control" id="approve-publishable">
+                                        <option value="true">True</option>
+                                        <option value="false">False</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -737,6 +762,8 @@
 
         // Function to handle the approve button click
         $("#pending-persons-table").on("click", ".approve-button", function () {
+            var oldData = {};
+            var personId = $(this).data("personId");
             var personUsername = $(this).data("username");
             var personName = $(this).data("name");
             var personNameOfRecord = $(this).data("nameOfRecord");
@@ -748,6 +775,34 @@
             var personFax = $(this).data("fax");
             var personWebsite = $(this).data("website");
             var personPub = $(this).data("publishable");
+            var personPending = $(this).data("pending");
+
+            if (personId != null && personPending == true) {
+                fetch('{{ url("/get-old-data/" }}/' + encodeURIComponent('{{ $pendingUsername }}'))
+                .then(response => response.json())
+                .then(data => {
+                    oldData = data;
+
+                $("#old-username").text(oldData.username);
+                $("#old-name").text(oldData.name);
+                $("#old-name-of-record").text(oldData.name_of_record);
+                $("#old-job-title").text(oldData.job_title);
+                $("#old-email").text(oldData.email);
+                $("#old-alias-email").text(oldData.alias_email);
+                $("#old-phone").text(oldData.phone);
+                $("#old-location").text(oldData.location);
+                $("#old-fax").text(oldData.fax);
+                $("#old-website").text(oldData.website);
+                $("#old-publishable option").filter(function() {
+                    return $(this).text() === oldData.publishable;
+                }).prop('selected', true);
+
+                console.log(oldData);
+                })
+                .catch(error => {
+                    console.log('Failed to fetch old data', error);
+                });
+            }
 
             $("#approve-username").val(personUsername);
             $("#approve-name").val(personName);
