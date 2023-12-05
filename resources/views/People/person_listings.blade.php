@@ -778,31 +778,41 @@
             var personPending = $(this).data("pending");
 
             if (personId != null && personPending == true) {
-                fetch('{{ url("/get-old-data/") }}/' + encodeURIComponent(personUsername))
-                .then(response => response.json())
-                .then(data => {
-                    oldData = data;
+                $.ajax({
+                    type: 'GET',
+                    url: '/get-old-data' + encodeURIComponent(personUsername),
+                    success: function(oldData) {
+                        $("#old-username").text(oldData.username);
+                        $("#old-name").text(oldData.name);
+                        $("#old-name-of-record").text(oldData.nameOfRecord);
+                        $("#old-job-title").text(oldData.jobTitle);
+                        $("#old-email").text(oldData.email);
+                        $("#old-alias-email").text(oldData.aliasEmail);
+                        $("#old-phone").text(oldData.phone);
+                        $("#old-location").text(oldData.location);
+                        $("#old-fax").text(oldData.fax);
+                        $("#old-website").text(oldData.website);
+                        $("#old-publishable option").filter(function() {
+                            return $(this).text() === oldData.publishable;
+                        }).prop('selected', true);
 
-                console.log(oldData);
-                })
-                .catch(error => {
-                    console.log('Failed to fetch old data', error);
+                        console.log(oldData);
+                    },
+                    error: function(error) {
+                        console.log('Failed to fetch old data', error);
+                    }
                 });
-            }
+                // fetch('{{ url("/get-old-data/") }}/' + encodeURIComponent(personUsername))
+                // .then(response => response.json())
+                // .then(data => {
+                //     oldData = data;
 
-            $("#old-username").text(oldData.username);
-            $("#old-name").text(oldData.name);
-            $("#old-name-of-record").text(oldData.nameOfRecord);
-            $("#old-job-title").text(oldData.jobTitle);
-            $("#old-email").text(oldData.email);
-            $("#old-alias-email").text(oldData.aliasEmail);
-            $("#old-phone").text(oldData.phone);
-            $("#old-location").text(oldData.location);
-            $("#old-fax").text(oldData.fax);
-            $("#old-website").text(oldData.website);
-            $("#old-publishable option").filter(function() {
-                return $(this).text() === oldData.publishable;
-            }).prop('selected', true);
+                // console.log(oldData);
+                // })
+                // .catch(error => {
+                //     console.log('Failed to fetch old data', error);
+                // });
+            }
 
             $("#approve-username").val(personUsername);
             $("#approve-name").val(personName);
