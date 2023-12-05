@@ -778,7 +778,7 @@
             var personPending = $(this).data("pending");
 
             if (personId != null && personPending == true) {
-                fetch('{{ url("/get-old-data/" }}/' + encodeURIComponent('{{ $pendingUsername }}'))
+                fetch('{{ url("/get-old-data/") }}/' + encodeURIComponent(personUsername))
                 .then(response => response.json())
                 .then(data => {
                     oldData = data;
@@ -798,7 +798,7 @@
                 }).prop('selected', true);
 
                 console.log(oldData);
-                })
+                });
                 .catch(error => {
                     console.log('Failed to fetch old data', error);
                 });
