@@ -49,6 +49,22 @@
                         <form action="{{route('person_listings.store')}}" method="POST" id="addPersonForm">
                             @csrf
                             <div class="form-group">
+                                <label for="add-campus-code">Campus Code</label>
+                                <select name="campus-code" class="form-control" id="campus-code">
+                                    @foreach ($campusData as $campusItem)
+                                        <option value="{{ $campusItem->code }}">{{ $campusItem->code }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                            <label for="add-dept-name">Department</label>
+                                <select name="campus-code" class="form-control" id="campus-code">
+                                    @foreach ($campusData as $campusItem)
+                                        <option value="{{ $campusItem->code }}">{{ $campusItem->code }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="add-username">Username</label>
                                 <input type="text" class="form-control" id="username" name="username"
                                     required minlength="2" maxlength="60" title="Enter a username (2 to 60 characters)">
@@ -308,12 +324,12 @@
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                 <table id="pending-persons-table" class="table table-size table-bordered mt-5">
                     <thead class="align-middle">
-                        <th>Campus Code</th>
+                        <!-- <th>Campus Code</th> -->
                         <th>Username</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Department</th>
+                        <!-- <th>Department</th> -->
                         <th>Location</th>
                         <th>Publishable</th>
                         <th>Last Approved</th>
@@ -323,12 +339,10 @@
                     <tbody>
                     @foreach($pendingPersonData as $item)
                         <tr>
-                            <td>{{$item->person->campus[0]->code}}</td>
                             <td>{{$item->username}}</td>
                             <td>{{$item->name}}</td>
                             <td>{{$item->email}}</td>
                             <td>{{$item->phone}}</td>
-                            <td>{{$item->person->department[0]["name"]}}</td>
                             <td>{{$item->location}}</td>
                             <td>{{$item->publishable  ? 'True' : 'False' }}</td>
                             <td>{{$item->lastApprovedAt}}</td>

@@ -15,12 +15,19 @@ class PersonController extends Controller
     public function index()
     {
         $personData = Person::all();
+        $campusData = Campus::distinct()->pluck('code');
         $pendingPersonData = PendingPerson::with('person.department', 'person.campus')->get();
-        
 
         $data = $personData->map(function($person) {
             $department = $person->department->first();
+            $campus = $person->campus->first();
             return (object) [
+                'campus_code' => ['columnName' => 'Campus Code',
+                                    'name' => 'campus-code',
+                                    'value' => $campus->campus_code,
+                                    'type' => gettype($campus->campus_code),
+                                    'inputType' => 'text'
+                                ],
                 'person_id' => ['columnName' => 'id', 
                                     'name' => 'person-id', 
                                     'value' => $person['id'],
@@ -33,18 +40,31 @@ class PersonController extends Controller
                                     'type' => gettype($person['username']),
                                     'inputType' => 'text',
                                 ],
+                'email' => [
+                                    'name' => 'email',
+                                    'value' => $person['email'],
+                                    'type' => gettype($person['email']),
+                                    'inputType' => 'text'
+                                ],
                 'name' => ['columnName' => 'Name', 
                                     'name' => 'name', 
                                     'value' => $person['name'],
                                     'type' => gettype($person['name']),
                                     'inputType' => 'text'
                                 ],
-                // 'department_name' => ['columnName' => 'Department Name', 
-                //                     'name' => 'dept_name', 
-                //                     'value' => $department->name,
-                //                     'type' => gettype($department->name),
-                //                     'inputType' => 'text'
-                //                 ],
+                'name_of_record' => ['columnName' => 'Name of Record', 
+                                'name' => 'name-of-record', 
+                                'value' => $person['name_of_record'],
+                                'type' => gettype($person['name']),
+                                'inputType' => 'text'
+                            ],
+                'department_name' => ['columnName' => 'Department Name', 
+                                    'name' => 'dept_name', 
+                                    'value' => $department->name,
+                                    'type' => gettype($department->name),
+                                    'inputType' => 'text'
+                                ],
+                ''
             ];
         });
 
@@ -94,6 +114,10 @@ class PersonController extends Controller
 
         // Define validation rules
         $validatedData = $req->validate([
+            'campus_code' => [
+                'required',
+                'string',
+            ],
             'username' => [
                 'required',
                 'string',
@@ -131,6 +155,10 @@ class PersonController extends Controller
                 'string',
                 'max:14',
             ],
+            'dept_name' => [
+                'required',
+                'string',
+            ],
             'location' => [
                 'nullable',
                 'string',
@@ -157,6 +185,7 @@ class PersonController extends Controller
 
         PendingPerson::create([
             'person_id' => $person->id,
+            'campus_code' => $validatedData['campus_code'],
             'username' => $validatedData['username'],
             'name' => $validatedData['name'],
             'name_of_record' => $validatedData['name_of_record']??null,
@@ -164,6 +193,7 @@ class PersonController extends Controller
             'email' => $validatedData['email'],
             'alias_email' => $validatedData['alias_email']??null,
             'phone' => $validatedData['phone'],
+            'dept_name' => $validatedData['dept_name'],
             'location' => $validatedData['location']??null,
             'fax' => $validatedData['fax']??null,
             'website' => $validatedData['website']??null,
@@ -180,6 +210,10 @@ class PersonController extends Controller
         ];
 
         $validatedData = $req->validate([
+            'campus_code' => [
+                'required',
+                'string',
+            ],
             'username' => [
                 'required',
                 'string',
@@ -216,6 +250,10 @@ class PersonController extends Controller
                 'string',
                 'max:14',
             ],
+            'dept_name' => [
+                'required',
+                'string',
+            ],
             'location' => [
                 'nullable',
                 'string',
@@ -237,6 +275,7 @@ class PersonController extends Controller
         ], $messages);
 
         PendingPerson::create([
+            'campus_code' => $validatedData['campus_code'],
             'username' => $validatedData['username'],
             'name' => $validatedData['name'],
             'name_of_record' => $validatedData['name_of_record']??null,
@@ -244,6 +283,7 @@ class PersonController extends Controller
             'email' => $validatedData['email'],
             'alias_email' => $validatedData['alias_email']??null,
             'phone' => $validatedData['phone'],
+            'dept_name' => $validatedData['dept_name'],
             'location' => $validatedData['location']??null,
             'fax' => $validatedData['fax']??null,
             'website' => $validatedData['website']??null,

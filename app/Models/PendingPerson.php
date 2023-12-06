@@ -13,6 +13,7 @@ class PendingPerson extends Model
 
     protected $fillable = [
         'person_id',
+        'campus_code',
         'username',
         'name',
         'name_of_record',
@@ -20,6 +21,7 @@ class PendingPerson extends Model
         'email',
         'alias_email',
         'phone',
+        'dept_name',
         'location',
         'fax',
         'website',
