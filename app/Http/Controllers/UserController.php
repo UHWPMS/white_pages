@@ -102,7 +102,7 @@ class UserController extends Controller
 
             'password' => 'required|same:confirm-password',
 
-            'roles' => 'required'
+            //'roles' => 'required'
 
         ]);
 
@@ -116,13 +116,14 @@ class UserController extends Controller
 
         $user = User::create($input);
 
-        $user->assignRole($request->input('roles'));
+        //$user->assignRole($request->input('roles'));
 
 
-
+        /*
         return redirect()->route('users.index')
 
             ->with('success','User created successfully');
+        */
 
     }
 

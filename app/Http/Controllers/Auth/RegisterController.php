@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use DB;
 
 class RegisterController extends Controller
 {
@@ -29,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::LOGIN;
 
     /**
      * Create a new controller instance.
@@ -70,4 +72,21 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+    
+    protected function register(Request $request)
+    {
+        $req = $request->all();
+        $name = $req['name'];
+        $email = $req['email'];
+        $password = Hash::make($req['password']);
+        User::create([
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+        ]);
+        $person= DB::select('select * from person_role_view where per_email = ?',[$email]);
+        //dd($req);
+        return redirect()->route('login');
+    }
+    
 }

@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -36,5 +40,25 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function login(Request $request) {
+        $req = $request->all();
+        $email = $req['email'];
+        $user = User::where('email',$email)->first();
+        if ($user){
+            Auth::login($user);
+            $person = DB::select('select * from person_role_view where per_email = ?',[$email]);
+            foreach ($person as $role) {
+                if ($role->role_name != "Member") {
+                    $user->assignRole($role->role_name);
+                }
+                else {
+                    $user->assignRole("Member");
+                }
+            }
+
+        }
+        return redirect()->route('home');
     }
 }
