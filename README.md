@@ -1,66 +1,80 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<h1 align="center">
+    UH White Pages Management System
+</h1>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <img src="./UHWPMS_main_page.png" width="800" alt="UHWPMS">
 </p>
 
-## About Laravel
+## Project Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Our White Pages Management System, developed in collaboration with the ITS Department at the University of Hawai'i at Mānoa, is a modernized version of the faculty and staff recordkeeping system used for the UH System. Our goal in creating and sharing this system is that other universities can utilize this code for similar database management purposes.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Getting Started
+**Technologies Used:**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Laravel
+- Vue.js
+- MySQL
+- Bootstrap
+- Git
 
-## Learning Laravel
+**Installation**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Environment for PHP and Laravel development** involves setting up the necessary software and tools to build and run web applications efficiently. Below are the steps to set up a basic environment for PHP and Laravel development:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Install PHP**:
+    - Download and install PHP from the official website: [PHP Downloads](https://www.php.net/downloads.php).
+    - Make sure to add PHP to your system's PATH so you can run it from the command line.
+    
+2. **Install Composer**:
+    - Composer is a package manager for PHP and is essential for Laravel.
+    - Download and install Composer by following the instructions on the official website: [Composer](https://getcomposer.org/download/).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+`composer create-project --prefer-dist laravel/laravel uh-white-page`, is the command to create a new Laravel project using Composer.
 
-## Laravel Sponsors
+**Environment for Vue:** Ensure you have a local development environment equipped with Node.js and npm (Node Package Manager)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+1. **Node.js and npm**:
+    - Vue.js requires Node.js, which includes npm (Node Package Manager) for managing packages and dependencies. Download and install Node.js from the official website: [Node.js Downloads](https://nodejs.org/).
+2. **install Vue.js using npm (Node Package Manager),** you can use the following command in your terminal or command prompt
 
-### Premium Partners
+**Setup:**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+1. Clone the repository from [our GitHub repo](https://github.com/UHWPMS/white_pages).
+2. Run `composer install` to install Laravel dependencies.
+3. Create a `.env` file and configure your database settings.
+4. Run `php artisan key:generate` to generate a new application key
+5. Run `php artisan migrate` to set up the database tables.
+6. Run database seeders
+    1.  `php artisan db:seed --class=CreateAdminAndRolesSeeder` to seed the database with a sample admin user.
+    2.  `php artisan db:seed --class=AnnouncementSeeder` to seed the database with a sample admin user.
+7. Run `npm install` to install Vue.js and other frontend dependencies.
+8. Run `npm run dev` to run the developer environment.
+9. Start the development server with `php artisan serve`.
 
-## Contributing
+## Project Page
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<p>Provided below is an overview of our project</p>
+<p>For more details about our project, please visit: <a href="https://glen-map-0a5.notion.site/d6bc4f6c4999458cb04efc4e6c548294?v=0737e27d22c04dc3bde0f53c481ea9b5">our Notion page</a></p>
 
-## Code of Conduct
+## Notes for further development
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+This project, designed for the Information Technology Services (ITS) department, is currently in a developmental phase with certain sections remaining incomplete. We would like to suggest the following enhancements and additions to further advance this project:
 
-## Security Vulnerabilities
+**Person Listings & Department Listings pages**
+- These pages currently uses Vue components to generate front-end pages dynamically depending on values given to the components. (see corresponding blade files) Performance for these pages can be improved by breaking down some dynamic Vue components to have some static views.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Department Contacts page**
+- There is a database table for this page that retrieves records associated for this page - this table can be deleted and Eloquent can be used to retrieve the records instead in its controller. 
 
-## License
+**Admins page**
+- Admins page needs assigning and unassigning logic similar to the Department Contacts page. 
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Utilizing View Model, Data Transfer Object (DTO) and Service classes**
+- Currently, all business logic and view models are written in the controllers directly, but we recommend creating view models for each page, and implementing DTO and Service classes for better organization of the code.
+
+**Database**
+- We used Spatie's Laravel Permission package for implementing RBAC. Because of the addition of this package, we have some additional tables in the database. Tables created by this package at migration are all named in lowercases. Tables listed in our ER diagram (in our Notion project page) all start with a capital letter in non-Windows systems.
+- In addition, we temporarily added a 'User' table for the purpose of recording passwords, but this part can also be replaced to incorporate UH Identity Access Management logic. 
+
