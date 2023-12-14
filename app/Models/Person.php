@@ -23,13 +23,12 @@ class Person extends Model
         'email',
         'alias_email',
         'phone',
-        'location',
         'fax',
+        'location',
         'website',
         'publishable',
         'lastApprovedAt',
         'lastApprovedBy',
-        'pending',
     ];
 
     public $timestamps = false;
@@ -40,7 +39,7 @@ class Person extends Model
     }
 
     public function roles() {
-        return $this-> belongsToMany(Role::class, 'Person_Role')->withPivot('role_id');
+        return $this-> belongsToMany(role::class, 'Person_Role')->withPivot('role_id');
     }
 
 

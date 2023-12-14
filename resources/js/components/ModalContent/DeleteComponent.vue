@@ -1,20 +1,28 @@
 <template>
     <form method="POST" :action="actionRoute" @submit.prevent="submitForm">
         <input type="hidden" name="_token" :value="csrfToken" />
-        <!-- <input type="hidden" name="_method" value="DELETE" /> -->
-        <input type="hidden" :name="this.idField.name" :value="this.idField.value" :v-model="this.entry[this.idFieldName]" />
         <div class="delete-message">
             Deleting this will completely remove the record from the database.
         </div>
         <div class="delete-message-fields">
-            <p v-for="item in this.displayedFields" >
-                <b>{{ item.columnName }}: </b><span>{{ item.value }}</span>
+            <p v-for="item in getFieldsToDisplay(entry)" >
+                <input v-if="item.inputType == 'hidden'" :type="item.inputType" :name="item.name" :value="item.value" :v-model="item.name" />
+                <span v-else><b>{{ item.label }}: </b><span>{{ item.options ? item.options[item.value] : item.value }}</span></span>
             </p>
         </div>
         <div>
             Are you sure you want to delete this {{ datasetType }}?
         </div>
     </form>
+
+    <div class="button-wrapper">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-button">
+            Close
+        </button>
+        <button type="submit" ref="submitButton" :id="`${modalId}-submit`" class="btn btn-danger btn-delete submit-button">
+            Confirm
+        </button>
+    </div>
     
 </template>
 
@@ -44,21 +52,8 @@
         data() {
             const submitButtonId = `${this.modalId}-submit`;
             const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-            const displayedFields = {};
-            let idField = '';
-            Object.keys(this.entry).forEach(key => {
-                if (this.entry[key].inputType !== 'hidden') {
-                    displayedFields[key] = this.entry[key];
-                }
-                else {
-                    // Name of the id field
-                    idField = this.entry[key];
-                }
-            });
             return {
                 submitButtonId,
-                displayedFields,
-                idField,
                 csrfToken
             }
         },
@@ -66,8 +61,21 @@
             const submitBtn = document.getElementById(this.submitButtonId);
             submitBtn.classList.add('delete-button');
             submitBtn.addEventListener('click', this.submitForm);
+
+            const modal = document.getElementById(this.modalId);
+            const modalDialog = modal.querySelector('.modal-dialog');
+            modalDialog.style.maxWidth = '30%';
         },
         methods: {
+            getFieldsToDisplay(entry) {
+                const fields = [];
+                Object.keys(entry).forEach(key => {
+                    if (typeof(entry[key]) == 'object') {
+                        fields.push(entry[key].formInput);
+                    }
+                });
+                return fields;
+            },
             submitForm(e) {
                 e.preventDefault();
                 const form = e.target.closest('.modal-content').querySelector('form');

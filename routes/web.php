@@ -39,22 +39,26 @@ Auth::routes();
         return redirect('/login');
     })->name('logout');
 
-
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/campus',[CampusController::class, 'index']);
     Route::get('/departments','App\Http\Controllers\DepartmentController@index')->name('departments.index');
 
+    //------------------------------ Person Listings Routes ------------------------------
+    Route::get('/person_listings',[PersonController::class, 'index'])->name('person_listings');
+    Route::post('person_listings/delete', 'App\Http\Controllers\PersonController@destroy')->name('person_listings.destroy');
+    Route::post('person_listings/update', 'App\Http\Controllers\PersonController@update')->name('person_listings.update');
+    Route::post('person_listings', [PersonController::class, 'store'])->name('person_listings.store');
+    Route::post('person_listings/approve' , 'App\Http\Controllers\PersonController@approve')->name('person_listings.approve');
+    Route::post('person_listings/reject', 'App\Http\Controllers\PersonController@reject')->name('person_listings.reject');
+
+
+    //------------------------------ Department Groups Routes ------------------------------
     Route::get('/dept_groups',[DeptGroupController::class, 'index'])->name('dept_groups');
     Route::post('dept_groups/delete','App\Http\Controllers\DeptGroupController@destroy')->name('dept_groups.destroy');
     Route::post('dept_groups/update','App\Http\Controllers\DeptGroupController@update')->name('dept_groups.update');
-    Route::post('dept_groups', [DeptGroupController::class, 'store'])->name('dept_groups.store');
-
-    Route::get('/person_listings',[PersonController::class, 'index'])->name('person_listings');
-    Route::delete('person_listings/{username}', 'App\Http\Controllers\PersonController@destroy')->name('person_listings.destroy');
-    Route::put('person_listings/{username}', 'App\Http\Controllers\PersonController@update')->name('person_listings.update');
-    Route::post('person_listings', [PersonController::class, 'store'])->name('person_listings.store');
-    Route::patch('person_listings/{username}' , 'App\Http\Controllers\PersonController@approve')->name('person_listings.approve');
-    Route::delete('person_listings/{username}', 'App\Http\Controllers\PersonController@reject')->name('person_listings.reject');
+    Route::post('dept_groups/create', [DeptGroupController::class, 'store'])->name('dept_groups.store');
+    Route::post('dept_groups/approve' , 'App\Http\Controllers\DeptGroupController@approve')->name('dept_groups.approve');
+    Route::post('dept_groups/reject', 'App\Http\Controllers\DeptGroupController@reject')->name('dept_groups.reject');
 
 
     //Route::get('/dept_groups',[DeptGroupController::class, 'index'])->name('dept_groups');
